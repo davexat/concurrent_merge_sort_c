@@ -89,7 +89,8 @@ int main(int argc, char **argv){
     for(int i = 0; i < num_threads; i++){
         thread_data[i].arr = numbers;
         thread_data[i].left = i * chunksize;
-        thread_data[i].right = (i == num_threads - 1) ? (count - 1) : ((i + 1) * chunksize - 1);
+        thread_data[i].right = (i == num_threads - 1) ? 
+            (count - 1) : ((i + 1) * chunksize - 1);
         pthread_create(&threads[i], NULL, threaded_merge_sort, &thread_data[i]);
     }
 
@@ -103,7 +104,8 @@ int main(int argc, char **argv){
     while(segmentSize < count){
         for(int left = 0; left < count; left += 2 * segmentSize){
             int mid = left + segmentSize - 1;
-            int right = (left + 2 * segmentSize - 1 <= count - 1) ? (left + 2 * segmentSize - 1) : (count - 1);
+            int right = (left + 2 * segmentSize - 1 <= count - 1) ? 
+                (left + 2 * segmentSize - 1) : (count - 1);
             if(mid < right)
                 merge(numbers, left, mid, right);
         }
